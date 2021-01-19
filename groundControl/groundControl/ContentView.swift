@@ -9,8 +9,49 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
+        VStack{
+            
+            Text("Controls")
+                .bold()
+                .padding()
+            
+            Button("Forward"){
+                
+            }
+            .foregroundColor(.white)
             .padding()
+            .background(Color.blue)
+            .cornerRadius(8)
+            HStack{
+                
+                Button("Left "){
+                    
+                }
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.blue)
+                .cornerRadius(8)
+                
+                Button("Right"){
+                    
+                }
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.blue)
+                .cornerRadius(8)
+                
+            }
+            Button("Backwards"){
+                
+            }
+            .foregroundColor(.white)
+            .padding()
+            .background(Color.blue)
+            .cornerRadius(8)
+            
+        }
+        
+        
     }
 }
 
