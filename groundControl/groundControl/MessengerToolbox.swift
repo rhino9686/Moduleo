@@ -8,6 +8,14 @@
 import Foundation
 
 
+enum MoveDirection {
+    case forward
+    case back
+    case turnleft
+    case turnright
+}
+
+
 // Initial style of messages will be HTTP Request
 
 func sendHTTP_POST(_ url_str: String, _ command: String) -> Void {
@@ -50,32 +58,46 @@ func sendHTTP_POST(_ url_str: String, _ command: String) -> Void {
     
 }
 
-
-
+// Top level handle for sending commands to Wi-Fi boards
+// Will replace with Sockets to improve efficiency
 func sendForwardCommand() -> Void {
-    
-    sendHTTP_POST("www.placeholder", "Forward")
-    
+    sendForwardCommandHTTP()
 }
-
 
 func sendBackWardCommand() -> Void {
-    
-    sendHTTP_POST("www.placeholder", "Backward")
-    
+    sendBackWardCommandHTTP()
 }
 
-
 func sendTurnLeftCommand() -> Void {
-    
-    sendHTTP_POST("www.placeholder", "Turnleft")
-    
+    sendTurnLeftCommandHTTP()
 }
 
 func sendTurnRightCommand() -> Void {
-    
-    sendHTTP_POST("www.placeholder", "Turnright")
-    
+    sendTurnRightCommandHTTP()
 }
 
 
+
+
+// Placeholder HTTP implementations to use with Wi-Fi chip in meantime
+func sendForwardCommandHTTP() -> Void {
+    sendHTTP_POST("www.placeholder", "Forward")
+}
+
+func sendBackWardCommandHTTP() -> Void {
+    sendHTTP_POST("www.placeholder", "Backward")
+}
+
+func sendTurnLeftCommandHTTP() -> Void {
+    sendHTTP_POST("www.placeholder", "Turnleft")
+}
+
+func sendTurnRightCommandHTTP() -> Void {
+    sendHTTP_POST("www.placeholder", "Turnright")
+}
+
+
+// Func to use a socket and send a command efficiently
+func sendCommandSocket( socketHandle: Int32,  cmd: MoveDirection) {
+    
+}

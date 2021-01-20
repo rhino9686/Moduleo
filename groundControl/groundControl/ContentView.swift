@@ -15,7 +15,7 @@ struct ContentView: View {
                 .bold()
                 .padding()
             
-            Button("Forward"){
+            Button("Go Forward"){
                 
                 sendForwardCommand()
                 
@@ -26,7 +26,7 @@ struct ContentView: View {
             .cornerRadius(8)
             HStack{
                 
-                Button("Left "){
+                Button("Turn Left "){
                     sendTurnLeftCommand()
                 }
                 .foregroundColor(.white)
@@ -34,7 +34,7 @@ struct ContentView: View {
                 .background(Color.blue)
                 .cornerRadius(8)
                 
-                Button("Right"){
+                Button("Turn Right"){
                     sendTurnRightCommand()
                 }
                 .foregroundColor(.white)
@@ -43,7 +43,7 @@ struct ContentView: View {
                 .cornerRadius(8)
                 
             }
-            Button("Backwards"){
+            Button("Go Backward"){
                 
                 sendBackWardCommand()
                 
