@@ -18,6 +18,8 @@ enum example {
 bool SETUP_MODE = false;
 
 
+//HTTPClient to send messages to server
+HTTPClient http;
 
 //IP Addresses for Access Point Mode
 IPAddress ip(192,168,11,4);
@@ -25,11 +27,32 @@ IPAddress gateway(192,168,11,1);
 IPAddress subnet(255,255,255,0);
 
 
+// Server handler declarations
+// should be agnostic between HTTP and Socket implementations
+
+// sends message over UART for drone to go forward for a unit of time
+void goForward();
+
+// sends message over UART for drone to continuously move forward
+void continuousForward();
+
+// sends message over UART for drone to go backward for a unit of time
+void goBackward();
+
+// sends message over UART for drone to continuously move backward
+void continuousBackward();
+
+// sends message over UART for drone to rotate left for a unit of time
+void turnLeft();
+
+// sends message over UART for drone to rotate right for a unit of time
+void turnRight();
+
 
 
 void setup() {
   // put your setup code here, to run once:
-  int i = 3;
+
   
 }
 
