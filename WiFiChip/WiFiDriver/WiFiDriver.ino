@@ -30,6 +30,11 @@ IPAddress subnet(255,255,255,0);
 // Server handler declarations
 // should be agnostic between HTTP and Socket implementations
 
+// sends a char over UART to the main board
+// dependency for the declarations below
+// returns 0 for success, -1 for error (for optional logging)
+int sendMessage(char msg);
+
 // sends message over UART for drone to go forward for a unit of time
 void goForward();
 
@@ -66,8 +71,11 @@ void loop() {
 
 // this will switch to Setup mode
 void switchToSetupMode() {
+
+  // toggle our own variable 
   SETUP_MODE = true;
 
+  // switch to WIFI_AP_STA mode where this chip broadcasts its own network
   WiFi.mode(WIFI_AP_STA);
   
   Serial.println(WiFi.softAPConfig(ip, gateway, subnet) ? "Ready" : "Failed!");
@@ -84,4 +92,42 @@ void switchToOperationalMode() {
   WiFi.mode(WIFI_STA);
 
   return;
+}
+//// END SETUP MODE ////////////////////////////////////////////////////////
+
+
+
+
+int sendMessage(char msg){
+    Serial.write(msg);
+}
+
+// sends message over UART for drone to go forward for a unit of time
+void goForward() {
+  sendMessage('F');
+}
+
+// sends message over UART for drone to continuously move forward
+void continuousForward() {
+  sendMessage('f');
+}
+
+// sends message over UART for drone to go backward for a unit of time
+void goBackward() {
+  sendMessage('B');
+}
+
+// sends message over UART for drone to continuously move backward
+void continuousBackward(){
+  sendMessage('b');
+}
+
+// sends message over UART for drone to rotate left for a unit of time
+void turnLeft() {
+  sendMessage('L');
+}
+
+// sends message over UART for drone to rotate right for a unit of time
+void turnRight() {
+  sendMessage('R');
 }
