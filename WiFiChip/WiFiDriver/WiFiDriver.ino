@@ -14,6 +14,13 @@ enum example {
 };
 
 
+struct AirParams {
+  int val1;
+  int val2;
+  int val3;
+
+}
+
 // If in setup mode, this will be true and chip will broadcast it's own network for setup
 bool SETUP_MODE = false;
 
@@ -52,6 +59,9 @@ void turnLeft();
 
 // sends message over UART for drone to rotate right for a unit of time
 void turnRight();
+
+// sends message over UART to request an air sample
+void requestAirStatus(char param);
 
 
 
@@ -100,6 +110,8 @@ void switchToOperationalMode() {
 
 int sendMessage(char msg){
     Serial.write(msg);
+
+    return 0;
 }
 
 // sends message over UART for drone to go forward for a unit of time
