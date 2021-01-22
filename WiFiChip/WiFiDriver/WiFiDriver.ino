@@ -18,17 +18,16 @@ struct AirParams {
   int val1;
   int val2;
   int val3;
-
 }
 
 // If in setup mode, this will be true and chip will broadcast it's own network for setup
 bool SETUP_MODE = false;
 
 
-//HTTPClient to send messages to server
+// HTTPClient to send messages to server
 HTTPClient http;
 
-//IP Addresses for Access Point Mode
+// IP Addresses for Access Point Mode
 IPAddress ip(192,168,11,4);
 IPAddress gateway(192,168,11,1);
 IPAddress subnet(255,255,255,0);
