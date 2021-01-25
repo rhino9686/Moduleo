@@ -7,21 +7,27 @@
 #include <ESP8266WiFiMulti.h> 
 #include <ESP8266HTTPClient.h>
 
-enum example {
-  unknown,
+/**enum example {
+  false,
   true,
   false
 };
-
+**/
 
 struct AirParams {
   int val1;
   int val2;
   int val3;
-}
+};
 
 // If in setup mode, this will be true and chip will broadcast it's own network for setup
 bool SETUP_MODE = false;
+
+
+const char* ssid = "MSetup";
+//ssid and password for Access Point
+const char* ssid2 = "FishTank";  //Previously MadiWifi, duly noted
+const char* password = "password";
 
 
 // HTTPClient to send messages to server
@@ -31,6 +37,8 @@ HTTPClient http;
 IPAddress ip(192,168,11,4);
 IPAddress gateway(192,168,11,1);
 IPAddress subnet(255,255,255,0);
+
+
 
 
 // Server handler declarations
