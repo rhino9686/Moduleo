@@ -6,9 +6,9 @@
             <name>ExecutionBoard</name>
             <creation-uuid>036b8385-8159-4e38-b1a4-40c8e974fcaa</creation-uuid>
             <make-project-type>0</make-project-type>
-            <c-extensions/>
+            <c-extensions>c</c-extensions>
             <cpp-extensions/>
-            <header-extensions/>
+            <header-extensions>h</header-extensions>
             <asminc-extensions/>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
