@@ -13,7 +13,6 @@ enum example {
   exval3
 };
 
-
 struct AirParams {
   int val1;
   int val2;
@@ -24,10 +23,12 @@ struct AirParams {
 bool SETUP_MODE = false;
 
 
-const char* ssid = "MSetup";
+const char* ssidFiller = "MSetup";
 //ssid and password for Access Point
-const char* ssid2 = "FishTank";  //Previously MadiWifi, duly noted
+const char* ssid = "FishTank";  //Previously MadiWifi, duly noted
 const char* password = "password";
+
+const char* myIP = "192,168,11,4";
 
 
 // HTTPClient to send messages to server
@@ -38,6 +39,10 @@ IPAddress ip(192,168,11,4);
 IPAddress gateway(192,168,11,1);
 IPAddress subnet(255,255,255,0);
 
+// Server object
+ESP8266WebServer server(80);
+
+char buf[4];
 
 
 
@@ -70,16 +75,28 @@ void turnRight();
 // sends message over UART to request an air sample
 void requestAirStatus(char param);
 
+// Switches to broadcasting it's own Wi-Fi network
+void switchToSetupMode();
+
+// Switches to connecting to a new network
+void switchToOperationalMode();
+
 
 
 void setup() {
-  // put your setup code here, to run once:
+  Serial.begin(9600);
+  Serial.println("starting up!");
 
-  
+  switchToSetupMode();
+
+    //Handler for http requests for requests
+    server.on("/goForward", goForward);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+ 
+
+  //Serial.println("Hi");
 
 }
 
@@ -108,6 +125,15 @@ void switchToOperationalMode() {
   WiFi.softAPdisconnect(true);
   WiFi.mode(WIFI_STA);
 
+
+  WiFi.begin(ssid, password);
+  
+  if (WiFi.waitForConnectResult() != WL_CONNECTED) {
+    Serial.println("WiFi Connect Failed! Rebooting...");
+    delay(1000);
+    ESP.restart();
+  }
+
   return;
 }
 //// END SETUP MODE ////////////////////////////////////////////////////////
@@ -117,6 +143,7 @@ void switchToOperationalMode() {
 
 int sendMessage(char msg){
     Serial.write(msg);
+    //can swap out with softwareSerial here
 
     return 0;
 }
