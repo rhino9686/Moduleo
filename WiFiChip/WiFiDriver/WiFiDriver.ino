@@ -7,12 +7,12 @@
 #include <ESP8266WiFiMulti.h> 
 #include <ESP8266HTTPClient.h>
 
-/**enum example {
-  false,
-  true,
-  false
+enum example {
+  exval1,
+  exval2,
+  exval3
 };
-**/
+
 
 struct AirParams {
   int val1;
