@@ -2,3 +2,4 @@
 groundControl/groundControl.xcodeproj/project.xcworkspace/xcuserdata/robertce.xcuserdatad/UserInterfaceState.xcuserstate
 groundControl/groundControl.xcodeproj/project.pbxproj
 ExecutionBoard/nbproject/private/private.xml
+WiFiChip/WiFiDriver/privates.h

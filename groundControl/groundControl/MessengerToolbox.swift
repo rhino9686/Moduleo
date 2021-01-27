@@ -20,7 +20,11 @@ enum MoveDirection {
 
 func sendHTTP_POST(_ url_str: String, _ command: String) -> Void {
     
-    let url = URL(string: url_str)!
+    let urlString =  "http://" + "192.168.11.4" + ":80" + "/goForward"
+    
+    let url = URL(string: urlString)!
+    
+
     var request = URLRequest(url: url)
     
     // Configure request authentication

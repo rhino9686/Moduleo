@@ -6,6 +6,7 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266WiFiMulti.h> 
 #include <ESP8266HTTPClient.h>
+#include "privates.h"
 
 enum example {
   exval1,
@@ -23,10 +24,14 @@ struct AirParams {
 bool SETUP_MODE = false;
 
 
-const char* ssidFiller = "MSetup";
-//ssid and password for Access Point
+
+//ssid and password for our own Access Point
 const char* ssid = "FishTank";  //Previously MadiWifi, duly noted
 const char* password = "password";
+
+//ssid and password for connecting to someone else's
+const char* ssidCentral = "PhiRhoGorls";
+const char* passwordCentral = PASSWORD;  //found in privates.h which is not stored in git
 
 const char* myIP = "192,168,11,4";
 
@@ -90,11 +95,20 @@ void setup() {
   switchToSetupMode();
 
     //Handler for http requests for requests
-    server.on("/goForward", goForward);
+  server.on("/goForward", goForward);
+
+  server.begin();
+
+  Serial.print("Local: ");
+  Serial.print(WiFi.localIP());
+  
 }
 
 void loop() {
  
+  server.handleClient();
+
+  delay(2000); 
 
   //Serial.println("Hi");
 
