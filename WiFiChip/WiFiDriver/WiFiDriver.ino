@@ -8,12 +8,14 @@
 #include <ESP8266HTTPClient.h>
 #include "privates.h"
 
+// placeholder enum
 enum example {
   exval1,
   exval2,
   exval3
 };
 
+// placeholder struct
 struct AirParams {
   int val1;
   int val2;
@@ -24,9 +26,8 @@ struct AirParams {
 bool SETUP_MODE = false;
 
 
-
 //ssid and password for our own Access Point
-const char* ssid = "FishTank";  //Previously MadiWifi, duly noted
+const char* ssid = "FishTank";  
 const char* password = "password";
 
 //ssid and password for connecting to someone else's
@@ -58,6 +59,10 @@ char buf[4];
 // dependency for the declarations below
 // returns 0 for success, -1 for error (for optional logging)
 int sendMessage(char msg);
+
+
+// Tester helper
+void handleRoot();
 
 // sends message over UART for drone to go forward for a unit of time
 void goForward();
@@ -92,10 +97,13 @@ void setup() {
   Serial.begin(9600);
   Serial.println("starting up!");
 
-  switchToSetupMode();
+  //switchToSetupMode();
+  switchToOperationalMode();
 
     //Handler for http requests for requests
   server.on("/goForward", goForward);
+
+  server.on("/", handleRoot);
 
   server.begin();
 
@@ -140,7 +148,7 @@ void switchToOperationalMode() {
   WiFi.mode(WIFI_STA);
 
 
-  WiFi.begin(ssid, password);
+  WiFi.begin(ssidCentral, passwordCentral);
   
   if (WiFi.waitForConnectResult() != WL_CONNECTED) {
     Serial.println("WiFi Connect Failed! Rebooting...");
@@ -160,6 +168,12 @@ int sendMessage(char msg){
     //can swap out with softwareSerial here
 
     return 0;
+}
+
+
+// Tester helper
+void handleRoot() {
+  server.send(200, "text/plain", "hello from esp8266!");
 }
 
 // sends message over UART for drone to go forward for a unit of time
