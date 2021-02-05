@@ -8,11 +8,84 @@
 import Foundation
 
 
-enum MoveDirection {
-    case forward
-    case back
-    case turnleft
-    case turnright
+enum CommandType: String {
+    case movement = "movement"
+    case dataScan = "dataScan"
+}
+
+enum MoveDirection: String {
+    case forward = "forward"
+    case back = "backward"
+    case turnleft = "turnLeft"
+    case turnright = "turnRight"
+}
+
+enum ScanType {
+    case airQual
+    case Humidity
+}
+
+// We will just make a high-level Messenger object and tie it to the root view
+// will just be an object-oriented version of below functions
+
+
+final class Messenger {
+    
+    private var urlString: String;
+    private var url: URL;
+    private var port: String = "5000";
+    
+    // Constructor: creates a url packet to create requests with repeatedly
+    init(ipAddr: String, port: Int?) {
+        
+        if (port != nil){
+            self.port = String(port!);
+        }
+        
+        self.urlString =  "http://" + ipAddr + ":" + self.port;
+        self.url = URL(string: urlString)!
+    }
+    
+    
+    func sendMessage(cmdType: CommandType, movement: MoveDirection? ){
+        
+        var localRequest = URLRequest(url: url)
+        
+        // Configure request authentication
+        localRequest.setValue(
+            "authToken",
+            forHTTPHeaderField: "Authorization"
+        )
+        
+        // Serialize HTTP Body data as JSON
+        let body = ["cmd": cmdType]
+        let bodyData = try? JSONSerialization.data(
+            withJSONObject: body,
+            options: []
+        )
+        
+        // Change the URLRequest to a POST request
+        localRequest.httpMethod = "POST"
+        localRequest.httpBody = bodyData
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: localRequest) { (data, response, error) in
+
+            if error != nil{
+                // Handle HTTP request error
+                print("error")
+            } else if data != nil {
+                // Handle HTTP request response
+            } else {
+                // Handle unexpected error
+                print("unknown occurrence")
+            }
+        }
+        
+        task.resume()
+        
+    }
+    
 }
 
 
