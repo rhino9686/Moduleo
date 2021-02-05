@@ -35,6 +35,8 @@ final class Messenger {
     private var url: URL;
     private var port: String = "5000";
     
+    private var HTTPResponse = "Nothing Received";
+    
     // Constructor: creates a url packet to create requests with repeatedly
     init(ipAddr: String, port: Int?) {
         
@@ -47,7 +49,7 @@ final class Messenger {
     }
     
     
-    func sendMessage(cmdType: CommandType, movement: MoveDirection? ){
+    func sendMessage(cmdType: CommandType, movement: MoveDirection?, scanType: ScanType? ){
         
         var localRequest = URLRequest(url: url)
         
@@ -76,6 +78,23 @@ final class Messenger {
                 print("error")
             } else if data != nil {
                 // Handle HTTP request response
+                
+                guard let data = data else {
+                    print("Empty Data")
+                    return
+                }
+                
+                do {
+                    let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:AnyObject]
+                    if result != nil && ("cmd" != "null") {
+                        let Val = result?["cmd"] as! String
+                        self.HTTPResponse = Val;
+                    }
+                
+                } catch {
+                       print("Error -> \(error)")
+                       }
+                    
             } else {
                 // Handle unexpected error
                 print("unknown occurrence")
