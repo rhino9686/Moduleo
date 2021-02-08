@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var messenger: Messenger
+    
     var body: some View {
         VStack{
             

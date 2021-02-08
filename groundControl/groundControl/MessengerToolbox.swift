@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 enum CommandType: String {
@@ -29,7 +30,8 @@ enum ScanType {
 // will just be an object-oriented version of below functions
 
 
-final class Messenger {
+final class Messenger: ObservableObject {
+    @Published var myInt = 1
     
     private var urlString: String;
     private var url: URL;
