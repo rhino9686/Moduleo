@@ -56,7 +56,7 @@ void main(void)
     I2C1_Initialize();
 
     // var to store address of sensor 
-    i2c1_address_t myAddr = 6;
+    i2c1_address_t myAddr = 0x80;
     
     // placeholder var for return 
     i2c1_error_t error = I2C1_BUSY;
