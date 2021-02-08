@@ -42,15 +42,27 @@
 */
 
 #include "mcc_generated_files/mcc.h"
+#include "mcc_generated_files/i2c1_master.h"
+#include "mcc_generated_files/uart1.h"
 
-/*
-                         Main application
- */
+
+
 void main(void)
 {
     // Initialize the device
     SYSTEM_Initialize();
+    
+    // Initialize I2C bus
+    I2C1_Initialize();
 
+    // var to store address of sensor 
+    i2c1_address_t myAddr = 6;
+    
+    // placeholder var for return 
+    i2c1_error_t error = I2C1_BUSY;
+    
+    char dataBuff[5];
+    
     // If using interrupts in PIC18 High/Low Priority Mode you need to enable the Global High and Low Interrupts
     // If using interrupts in PIC Mid-Range Compatibility Mode you need to enable the Global Interrupts
     // Use the following macros to:
@@ -63,7 +75,12 @@ void main(void)
 
     while (1)
     {
+         error =  I2C1_Open(myAddr);
+         I2C1_SetBuffer((void *)dataBuff, 5);
+         
         // Add your application code
+      
+         error = I2C1_MasterOperation(true); // read from I2C buff
     }
 }
 /**
