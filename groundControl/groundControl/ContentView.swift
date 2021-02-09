@@ -27,7 +27,7 @@ struct ContentView: View {
             .background(Color.blue)
             .cornerRadius(8)
             HStack{
-                
+                Spacer()
                 Button("Turn Left "){
                     sendTurnLeftCommand()
                 }
@@ -35,6 +35,15 @@ struct ContentView: View {
                 .padding()
                 .background(Color.blue)
                 .cornerRadius(8)
+                Spacer()
+                Button("     Stop    "){
+                    sendHaltCommand()
+                }
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.gray)
+                .cornerRadius(8)
+                Spacer()
                 
                 Button("Turn Right"){
                     sendTurnRightCommand()
@@ -43,6 +52,7 @@ struct ContentView: View {
                 .padding()
                 .background(Color.blue)
                 .cornerRadius(8)
+                Spacer()
                 
             }
             Button("Go Backward"){

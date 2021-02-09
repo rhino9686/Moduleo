@@ -35,7 +35,7 @@ final class Messenger: ObservableObject {
     
     private var urlString: String;
     private var url: URL;
-    private var port: String = "5000";
+    private var port: String = "80";
     
     private var HTTPResponse = "Nothing Received";
     
@@ -179,7 +179,7 @@ func sendTurnRightCommand() -> Void {
 
 
 func sendHaltCommand() -> Void {
-    
+    sendHaltCommandHTTP()
 }
 
 
