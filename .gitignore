@@ -3,3 +3,5 @@ groundControl/groundControl.xcodeproj/project.xcworkspace/xcuserdata/robertce.xc
 groundControl/groundControl.xcodeproj/project.pbxproj
 ExecutionBoard/nbproject/private/private.xml
 WiFiChip/WiFiDriver/privates.h
+/ExecutionBoard/build/
+/ExecutionBoard/dist/

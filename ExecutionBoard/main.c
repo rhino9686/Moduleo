@@ -54,6 +54,7 @@ void main(void)
     
     // Initialize I2C bus
     I2C1_Initialize();
+    UART1_Initialize();
 
     // var to store address of sensor 
     i2c1_address_t myAddr = 0x80;
@@ -61,7 +62,15 @@ void main(void)
     // placeholder var for return 
     i2c1_error_t error = I2C1_BUSY;
     
-    char dataBuff[5];
+    //buffer for I2C transactions
+    char i2c_dataBuff[5];
+    I2C1_SetBuffer((void *)i2c_dataBuff, 5);
+    
+    //data for test UART stuff
+    uint8_t uartdatum = 'D';
+    
+    
+    
     
     // If using interrupts in PIC18 High/Low Priority Mode you need to enable the Global High and Low Interrupts
     // If using interrupts in PIC Mid-Range Compatibility Mode you need to enable the Global Interrupts
@@ -76,9 +85,11 @@ void main(void)
     while (1)
     {
          error =  I2C1_Open(myAddr);
-         I2C1_SetBuffer((void *)dataBuff, 5);
+
+        // send UART thing
+         UART1_Write(uartdatum);
          
-        // Add your application code
+         while (!UART1_is_tx_done());
       
          error = I2C1_MasterOperation(true); // read from I2C buff
     }
