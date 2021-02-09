@@ -114,7 +114,9 @@ final class Messenger: ObservableObject {
 
 func sendHTTP_POST(_ url_str: String, _ command: String) -> Void {
     
-    let urlString =  "http://" + "192.168.11.4" + ":80" + "/goForward"
+    print("sending command")
+    
+    let urlString =  "http://" + "192.168.86.208"
     
     let url = URL(string: urlString)!
     
@@ -146,6 +148,7 @@ func sendHTTP_POST(_ url_str: String, _ command: String) -> Void {
             print("error")
         } else if data != nil {
             // Handle HTTP request response
+            print("Data is true")
         } else {
             // Handle unexpected error
             print("unknown occurrence")
@@ -175,6 +178,10 @@ func sendTurnRightCommand() -> Void {
 }
 
 
+func sendHaltCommand() -> Void {
+    
+}
+
 
 
 // Placeholder HTTP implementations to use with Wi-Fi chip in meantime
@@ -192,6 +199,10 @@ func sendTurnLeftCommandHTTP() -> Void {
 
 func sendTurnRightCommandHTTP() -> Void {
     sendHTTP_POST("www.placeholder", "Turnright")
+}
+
+func sendHaltCommandHTTP() -> Void {
+    sendHTTP_POST("www.placeholder", "Halt")
 }
 
 

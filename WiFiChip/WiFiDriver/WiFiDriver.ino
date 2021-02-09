@@ -31,7 +31,7 @@ const char* ssid = "FishTank";
 const char* password = "password";
 
 //ssid and password for connecting to someone else's
-const char* ssidCentral = "PhiRhoGorls";
+const char* ssidCentral = "Exoplanet";
 const char* passwordCentral = PASSWORD;  //found in privates.h which is not stored in git
 
 const char* myIP = "192,168,11,4";
@@ -116,7 +116,7 @@ void loop() {
  
   server.handleClient();
 
-  delay(2000); 
+  delay(1000); 
 
   //Serial.println("Hi");
 
@@ -173,6 +173,8 @@ int sendMessage(char msg){
 
 // Tester helper
 void handleRoot() {
+  Serial.print("\n");
+  Serial.println("pinged correctly at root");
   server.send(200, "text/plain", "hello from esp8266!");
 }
 
