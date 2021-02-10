@@ -27,14 +27,14 @@ bool SETUP_MODE = false;
 
 
 //ssid and password for our own Access Point
-const char* ssid = "FishTank";  
+const char* ssid = "groundControl";  
 const char* password = "password";
 
 //ssid and password for connecting to someone else's
 const char* ssidCentral = "Exoplanet";
 const char* passwordCentral = PASSWORD;  //found in privates.h which is not stored in git
 
-const char* myIP = "192,168,11,4";
+const char* myIP = "192,168,11,4"; //?
 
 
 // HTTPClient to send messages to server
@@ -60,9 +60,14 @@ char buf[4];
 // returns 0 for success, -1 for error (for optional logging)
 int sendMessage(char msg);
 
+int sendMessage(String msg);
+
 
 // Tester helper
 void handleRoot();
+
+//function that can split off into any of the remaining funcs depending on what args are sent with it
+void handleCommand();
 
 // sends message over UART for drone to go forward for a unit of time
 void goForward();
@@ -81,6 +86,9 @@ void turnLeft();
 
 // sends message over UART for drone to rotate right for a unit of time
 void turnRight();
+
+// sends message over UART for drone to halt all movement
+void haltRobot();
 
 // sends message over UART to request an air sample
 void requestAirStatus(char param);
@@ -102,6 +110,8 @@ void setup() {
 
     //Handler for http requests for requests
   server.on("/goForward", goForward);
+
+  server.on("/command", handleCommand);
 
   server.on("/", handleRoot);
 
@@ -170,12 +180,27 @@ int sendMessage(char msg){
     return 0;
 }
 
+int sendMessage(String msg) {
+  Serial.print(msg);
+
+  return 0;
+}
+
 
 // Tester helper
 void handleRoot() {
   Serial.print("\n");
   Serial.println("pinged correctly at root");
   server.send(200, "text/plain", "hello from esp8266!");
+}
+
+// handles a generic command and parses the argument
+void handleCommand() {
+  
+  String cmd = server.arg(0);
+  sendMessage(cmd[0]);
+
+  server.send(200, "text/plain", "ACK");
 }
 
 // sends message over UART for drone to go forward for a unit of time
@@ -206,4 +231,9 @@ void turnLeft() {
 // sends message over UART for drone to rotate right for a unit of time
 void turnRight() {
   sendMessage('R');
+}
+
+// sends message over UART for drone to halt all movement
+void haltRobot() {
+  sendMessage('H');
 }

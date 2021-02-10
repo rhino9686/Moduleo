@@ -186,19 +186,19 @@ func sendHaltCommand() -> Void {
 
 // Placeholder HTTP implementations to use with Wi-Fi chip in meantime
 func sendForwardCommandHTTP() -> Void {
-    sendHTTP_POST("www.placeholder", "Forward")
+    sendHTTP_POST("www.placeholder", "F")
 }
 
 func sendBackWardCommandHTTP() -> Void {
-    sendHTTP_POST("www.placeholder", "Backward")
+    sendHTTP_POST("www.placeholder", "B")
 }
 
 func sendTurnLeftCommandHTTP() -> Void {
-    sendHTTP_POST("www.placeholder", "Turnleft")
+    sendHTTP_POST("www.placeholder", "L")
 }
 
 func sendTurnRightCommandHTTP() -> Void {
-    sendHTTP_POST("www.placeholder", "Turnright")
+    sendHTTP_POST("www.placeholder", "R")
 }
 
 func sendHaltCommandHTTP() -> Void {
