@@ -23,8 +23,43 @@ extension Binding {
 // controls view for settings 
 struct SettingsView: View {
     @EnvironmentObject var messenger: Messenger
+    
+    @State private var newIP: String = "";
+    @State private var isEditing = false
+    
+    init() {
+     //   username = messenger.myIP;
+    }
+    
     var body: some View {
-        Text("Example Settings View")
+        
+        VStack {
+            Spacer()
+            Text("Current IP Address:  " + messenger.myIP)
+            Spacer()
+            
+            TextField(
+               "     Enter new IP address",
+                text: $newIP
+           ) { isEditing in
+               self.isEditing = isEditing
+           } onCommit: {
+            
+                let result = isValidIP(s: newIP)
+                if result {
+                    messenger.setURL(ipAddr: newIP)
+                }
+            
+           }
+           .autocapitalization(.none)
+           .disableAutocorrection(true)
+           .border(Color(UIColor.separator))
+           Text(newIP)
+               .foregroundColor(isEditing ? .red : .blue)
+            Spacer()
+        }.padding()
+           
+        
     }
 }
 
@@ -109,7 +144,7 @@ struct ContentView: View {
             showingSettings.toggle()
         }.padding(10)
         .sheet(isPresented: $showingSettings) {
-            SettingsView().environmentObject(messenger)
+            SettingsView().environmentObject(self.messenger)
         }
         
     }

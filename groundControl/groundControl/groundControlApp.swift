@@ -14,7 +14,7 @@ struct groundControlApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(messenger)
+            ContentView().environmentObject(self.messenger)
         }
     }
 }

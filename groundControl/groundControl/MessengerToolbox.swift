@@ -39,10 +39,9 @@ func isValidIP(s: String) -> Bool {
 // We will just make a high-level Messenger object and tie it to the root view
 // will just be an object-oriented version of below functions
 
-
 final class Messenger: ObservableObject {
     @Published var myInt = 1
-    
+    var myIP: String;
     private var urlString: String;
     private var url: URL;
     private var port: String = "80";
@@ -55,12 +54,13 @@ final class Messenger: ObservableObject {
         if (port != nil){
             self.port = String(port!);
         }
-        
+        self.myIP = ipAddr;
         self.urlString =  "http://" + ipAddr + ":" + self.port;
         self.url = URL(string: urlString)!
     }
     
     func setURL(ipAddr:String){
+        self.myIP = ipAddr;
         self.urlString =  "http://" + ipAddr + ":" + self.port;
     }
     
