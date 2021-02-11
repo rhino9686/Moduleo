@@ -9,11 +9,13 @@ import Foundation
 import SwiftUI
 
 
+// TODO: revise and integrate or drop
 enum CommandType: String {
     case movement = "movement"
     case dataScan = "dataScan"
 }
 
+// TODO: revise and integrate or drop
 enum MoveDirection: String {
     case forward = "forward"
     case back = "backward"
@@ -21,9 +23,17 @@ enum MoveDirection: String {
     case turnright = "turnRight"
 }
 
+// TODO: Integrate or drop
 enum ScanType {
     case airQual
     case Humidity
+}
+
+// Validates a proper IP addr when entered by user
+func isValidIP(s: String) -> Bool {
+    let parts = s.components(separatedBy: ".")
+    let nums = parts.compactMap { Int($0) }
+    return parts.count == 4 && nums.count == 4 && nums.filter { $0 >= 0 && $0 < 256}.count == 4
 }
 
 // We will just make a high-level Messenger object and tie it to the root view
@@ -48,6 +58,10 @@ final class Messenger: ObservableObject {
         
         self.urlString =  "http://" + ipAddr + ":" + self.port;
         self.url = URL(string: urlString)!
+    }
+    
+    func setURL(ipAddr:String){
+        self.urlString =  "http://" + ipAddr + ":" + self.port;
     }
     
     
@@ -112,7 +126,7 @@ final class Messenger: ObservableObject {
 
 // Initial style of messages will be HTTP Request
 
-func sendHTTP_POST(_ url_str: String, _ command: String) -> Void {
+func sendHTTP_POST(_ url_str: String, _ command: String, _ numeric: Int = 0) -> Void {
     
     print("sending command")
     
@@ -177,9 +191,12 @@ func sendTurnRightCommand() -> Void {
     sendTurnRightCommandHTTP()
 }
 
-
 func sendHaltCommand() -> Void {
     sendHaltCommandHTTP()
+}
+
+func sendSpeedUpdate(newSpeedVal: Int) -> Void {
+    sendSpeedUpdateHTTP(newSpeedVal: 3)
 }
 
 
@@ -202,9 +219,13 @@ func sendTurnRightCommandHTTP() -> Void {
 }
 
 func sendHaltCommandHTTP() -> Void {
-    sendHTTP_POST("www.placeholder", "Halt")
+    sendHTTP_POST("www.placeholder", "H")
 }
 
+
+func sendSpeedUpdateHTTP(newSpeedVal: Int) -> Void {
+    sendHTTP_POST("www.placeholder", "S", newSpeedVal)
+}
 
 // Func to use a socket and send a command efficiently
 func sendCommandSocket( socketHandle: Int32,  cmd: MoveDirection) {

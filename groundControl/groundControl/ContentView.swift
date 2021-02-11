@@ -20,12 +20,24 @@ extension Binding {
     }
 }
 
-struct ContentView: View {
+// controls view for settings 
+struct SettingsView: View {
     @EnvironmentObject var messenger: Messenger
-    @State var speed: Double = 20;
+    var body: some View {
+        Text("Example Settings View")
+    }
+}
+
+struct ContentView: View {
+    //controls state of popup modal
+    @State private var showingSettings = false
+    
+    @EnvironmentObject var messenger: Messenger
+    @State var speed: Double = 20
     
     func speedChanged(to value: Double) {
         print("Name changed to \(speed)!")
+      //  var intSpeedVal = Int32(speed);
     }
     
     var body: some View {
@@ -92,7 +104,13 @@ struct ContentView: View {
             Slider(value: $speed.onChange(speedChanged), in: 0...30).padding(30)
             Text("Current speed: \(speed, specifier: "%.0f")")
         }
-        
+      
+        Button("Preferences") {
+            showingSettings.toggle()
+        }.padding(10)
+        .sheet(isPresented: $showingSettings) {
+            SettingsView().environmentObject(messenger)
+        }
         
     }
 }
