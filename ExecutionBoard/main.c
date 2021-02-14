@@ -46,6 +46,21 @@
 #include "mcc_generated_files/uart1.h"
 
 
+int flag = 0;
+
+char uart_datum = '';
+
+
+
+void handlerFunc(void){
+    flag = 4;
+    
+    while (!UART1_is_rx_ready());
+
+    uart_datum = UART1_Read();
+     
+}
+
 
 void main(void)
 {
@@ -69,6 +84,7 @@ void main(void)
     //data for test UART stuff
     uint8_t uartdatum = 'D';
     
+    UART1_SetRxInterruptHandler(handlerFunc);
     
     
     
@@ -76,22 +92,27 @@ void main(void)
     // If using interrupts in PIC Mid-Range Compatibility Mode you need to enable the Global Interrupts
     // Use the following macros to:
 
+    
+    
+    
+    
+    
     // Enable the Global Interrupts
-    //INTERRUPT_GlobalInterruptEnable();
+    INTERRUPT_GlobalInterruptEnable();
 
     // Disable the Global Interrupts
     //INTERRUPT_GlobalInterruptDisable();
 
     while (1)
     {
-         error =  I2C1_Open(myAddr);
+       //  error =  I2C1_Open(myAddr);
 
         // send UART thing
          UART1_Write(uartdatum);
          
          while (!UART1_is_tx_done());
       
-         error = I2C1_MasterOperation(true); // read from I2C buff
+        // error = I2C1_MasterOperation(true); // read from I2C buff
     }
 }
 /**
