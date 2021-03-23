@@ -48,7 +48,7 @@
 
 int flag = 0;
 
-char uart_datum = '';
+char uart_datum = 'F';
 
 
 
@@ -84,7 +84,7 @@ void main(void)
     //data for test UART stuff
     uint8_t uartdatum = 'D';
     
-    UART1_SetRxInterruptHandler(handlerFunc);
+    UART1_SetRxInterruptHandler(&handlerFunc);
     
     
     
