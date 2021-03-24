@@ -95,8 +95,6 @@ void main(void)
     
     
     
-    
-    
     // Enable the Global Interrupts
     INTERRUPT_GlobalInterruptEnable();
 

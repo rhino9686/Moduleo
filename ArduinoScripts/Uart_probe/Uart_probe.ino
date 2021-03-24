@@ -1,6 +1,6 @@
 char datumRec = 'G';
 
-
+char datumSend = 'H';
 void setup() {
   // put your setup code here, to run once:
 
@@ -11,9 +11,12 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
+  delay(1000);
+
   if (Serial.available()){
       datumRec = Serial.read();
-      Serial.write('L');
+      Serial.write(datumSend);
   }
+
 
 }
