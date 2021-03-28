@@ -5,3 +5,6 @@ ExecutionBoard/nbproject/private/private.xml
 WiFiChip/WiFiDriver/privates.h
 /ExecutionBoard/build/
 /ExecutionBoard/dist/
+ExecutionBoard/nbproject/private/private.xml
+ExecutionBoard/nbproject/Makefile-genesis.properties
+ExecutionBoard/nbproject/Makefile-default.mk

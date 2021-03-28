@@ -13,10 +13,11 @@ void loop() {
 
   delay(1000);
 
-  if (Serial.available()){
+/**  if (Serial.available()){
       datumRec = Serial.read();
       Serial.write(datumSend);
   }
-
+**/
+  Serial.write(datumSend);
 
 }

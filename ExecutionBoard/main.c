@@ -50,14 +50,26 @@ int flag = 0;
 
 char uart_datum = 'F';
 
+void delay (int timeout){
+    
+    for (volatile int i = 0; i < timeout; ++i){}
+    
+    
+}
+
 
 
 void handlerFunc(void){
     flag = 4;
     
-    while (!UART1_is_rx_ready());
+    IO_RA4_Toggle(); 
+  
+    
+    //while (!UART1_is_rx_ready());
 
-    uart_datum = UART1_Read();
+    //uart_datum = UART1_Read();
+    UART1_Receive_ISR();
+    return;
      
 }
 
@@ -66,6 +78,8 @@ void main(void)
 {
     // Initialize the device
     SYSTEM_Initialize();
+    
+    PIN_MANAGER_Initialize();
     
     // Initialize I2C bus
     I2C1_Initialize();
@@ -105,10 +119,16 @@ void main(void)
     {
        //  error =  I2C1_Open(myAddr);
 
+        IO_RA5_Toggle(); 
+        
+        
+        delay(4000);
+        delay(4000);
+        
         // send UART thing
-         UART1_Write(uartdatum);
+       //  UART1_Write(uartdatum);
          
-         while (!UART1_is_tx_done());
+       //  while (!UART1_is_tx_done());
       
         // error = I2C1_MasterOperation(true); // read from I2C buff
     }
