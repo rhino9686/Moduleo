@@ -8,6 +8,20 @@
 #include <ESP8266HTTPClient.h>
 #include "privates.h"
 
+//Character definition constants
+
+
+#define DEBUG_MODE 0      //  flag for optional Debug stuff
+
+#define FORWARD 'F'       //  To send message over UART for drone to go forward for a unit of time
+#define FORWARD_CONT 'f'  //  To send message over UART for drone to continuously move forward
+#define BACKWARD 'B'      //  To send message over UART for drone to go backward for a unit of time
+#define BACKWARD_CONT 'b' //  To send message over UART for drone to continuously move backwards
+#define LEFT 'L'          //  To send message over UART for drone to rotate left for a unit of time
+#define RIGHT 'R'         //  To send message over UART for drone to rotate right for a unit of time
+#define HALT 'H'          //  To send message over UART for drone to halt
+
+
 // placeholder enum
 enum example {
   exval1,
@@ -15,8 +29,6 @@ enum example {
   exval3
 };
 
-
-////comment for git push
 
 // placeholder struct
 struct AirParams {
@@ -34,10 +46,10 @@ const char* ssid = "groundControl";
 const char* password = "password";
 
 //ssid and password for connecting to someone else's
-const char* ssidCentral = "Exoplanet";
+const char* ssidCentral = "ATT4PrY5GD";
 const char* passwordCentral = PASSWORD;  //found in privates.h which is not stored in git
 
-const char* myIP = "192,168,11,4"; //?
+const char* myIP = "192,168,11,4"; // My own set IP Addr
 
 
 // HTTPClient to send messages to server
@@ -72,29 +84,8 @@ void handleRoot();
 //function that can split off into any of the remaining funcs depending on what args are sent with it
 void handleCommand();
 
-// sends message over UART for drone to go forward for a unit of time
-void goForward();
-
-// sends message over UART for drone to continuously move forward
-void continuousForward();
-
-// sends message over UART for drone to go backward for a unit of time
-void goBackward();
-
-// sends message over UART for drone to continuously move backward
-void continuousBackward();
-
-// sends message over UART for drone to rotate left for a unit of time
-void turnLeft();
-
-// sends message over UART for drone to rotate right for a unit of time
-void turnRight();
-
-// sends message over UART for drone to halt all movement
-void haltRobot();
-
 // sends message over UART to request an air sample
-void requestAirStatus(char param);
+void requestSensorStatus(char param);
 
 // Switches to broadcasting it's own Wi-Fi network
 void switchToSetupMode();
@@ -112,7 +103,6 @@ void setup() {
   switchToOperationalMode();
 
     //Handler for http requests for requests
-  server.on("/goForward", goForward);
 
   server.on("/command", handleCommand);
 
@@ -131,7 +121,7 @@ void loop() {
 
   delay(1000); 
 
-  //Serial.println("Hi");
+  //Serial.println("Looping");
 
 }
 
@@ -204,39 +194,4 @@ void handleCommand() {
   sendMessage(cmd[0]);
 
   server.send(200, "text/plain", "ACK");
-}
-
-// sends message over UART for drone to go forward for a unit of time
-void goForward() {
-  sendMessage('F');
-}
-
-// sends message over UART for drone to continuously move forward
-void continuousForward() {
-  sendMessage('f');
-}
-
-// sends message over UART for drone to go backward for a unit of time
-void goBackward() {
-  sendMessage('B');
-}
-
-// sends message over UART for drone to continuously move backward
-void continuousBackward(){
-  sendMessage('b');
-}
-
-// sends message over UART for drone to rotate left for a unit of time
-void turnLeft() {
-  sendMessage('L');
-}
-
-// sends message over UART for drone to rotate right for a unit of time
-void turnRight() {
-  sendMessage('R');
-}
-
-// sends message over UART for drone to halt all movement
-void haltRobot() {
-  sendMessage('H');
 }
