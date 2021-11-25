@@ -22,6 +22,8 @@
 #define HALT 'H'          //  To send message over UART for drone to halt
 
 
+char cmdSelected = 'A';
+
 // placeholder enum
 enum example {
   exval1,
@@ -120,8 +122,9 @@ void loop() {
   server.handleClient();
 
   delay(1000); 
+  
 
-  //Serial.println("Looping");
+  //Serial.println(cmdSelected);
 
 }
 
@@ -189,9 +192,16 @@ void handleRoot() {
 
 // handles a generic command and parses the argument
 void handleCommand() {
-  
-  String cmd = server.arg(0);
-  sendMessage(cmd[0]);
+
+  String message = " ";
+ for (int i = 0; i < server.args(); i++) {
+
+    message += "Arg nº" + (String)i + " –> ";
+    message += server.argName(i) + ": ";
+    message += server.arg(i) + "\n";
+} 
+  Serial.println("pinged correctly at command");
+  Serial.println(message);
 
   server.send(200, "text/plain", "ACK");
 }
