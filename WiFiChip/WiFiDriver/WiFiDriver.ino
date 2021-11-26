@@ -190,18 +190,25 @@ void handleRoot() {
   server.send(200, "text/plain", "hello from esp8266!");
 }
 
+void printArgs() {
+  String message = " ";
+  for (int i = 0; i < server.args(); i++) {
+
+     message += "Arg nº" + (String)i + " –> ";
+     message += server.argName(i) + ": ";
+     message += server.arg(i) + "\n";
+   } 
+    
+   Serial.println(message);
+}
+
 // handles a generic command and parses the argument
 void handleCommand() {
 
-  String message = " ";
- for (int i = 0; i < server.args(); i++) {
-
-    message += "Arg nº" + (String)i + " –> ";
-    message += server.argName(i) + ": ";
-    message += server.arg(i) + "\n";
-} 
-  Serial.println("pinged correctly at command");
-  Serial.println(message);
+ Serial.println("pinged correctly at command");
+ String test = server.arg("cmd");
+ Serial.println(test);
+  
 
   server.send(200, "text/plain", "ACK");
 }
