@@ -29,6 +29,7 @@ struct SettingsView: View {
     
     init() {
      //   username = messenger.myIP;
+        
     }
     
     var body: some View {
@@ -85,7 +86,9 @@ struct ContentView: View {
             
             Button("Go Forward"){
                 
-                sendForwardCommand()
+                messenger.sendMessage(
+                    cmdType:  .movement,
+                    movement: .forward)
                 
             }
             .foregroundColor(.white)
@@ -95,7 +98,11 @@ struct ContentView: View {
             HStack{
                 Spacer()
                 Button("Turn Left "){
-                    sendTurnLeftCommand()
+                   // sendTurnLeftCommand()
+                    
+                    messenger.sendMessage(
+                        cmdType:  .movement,
+                        movement: .turnleft)
                 }
                 .foregroundColor(.white)
                 .padding()
@@ -103,7 +110,10 @@ struct ContentView: View {
                 .cornerRadius(8)
                 Spacer()
                 Button("     Stop    "){
-                    sendHaltCommand()
+                //    sendHaltCommand()
+                    messenger.sendMessage(
+                        cmdType:  .movement,
+                        movement: .halt)
                 }
                 .foregroundColor(.white)
                 .padding()
@@ -112,7 +122,10 @@ struct ContentView: View {
                 Spacer()
                 
                 Button("Turn Right"){
-                    sendTurnRightCommand()
+                //    sendTurnRightCommand()
+                    messenger.sendMessage(
+                        cmdType:  .movement,
+                        movement: .turnright)
                 }
                 .foregroundColor(.white)
                 .padding()
@@ -123,7 +136,10 @@ struct ContentView: View {
             }
             Button("Go Backward"){
                 
-                sendBackWardCommand()
+                //sendBackWardCommand()
+                messenger.sendMessage(
+                    cmdType:  .movement,
+                    movement: .back)
                 
             }
             .foregroundColor(.white)

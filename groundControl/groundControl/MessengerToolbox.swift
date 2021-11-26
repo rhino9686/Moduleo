@@ -17,10 +17,11 @@ enum CommandType: String {
 
 // TODO: revise and integrate or drop
 enum MoveDirection: String {
-    case forward = "forward"
-    case back = "backward"
-    case turnleft = "turnLeft"
-    case turnright = "turnRight"
+    case forward = "F"
+    case back = "B"
+    case turnleft = "L"
+    case turnright = "R"
+    case halt = "H"
 }
 
 // TODO: Integrate or drop
@@ -66,7 +67,15 @@ final class Messenger: ObservableObject {
     }
     
     
-    func sendMessage(cmdType: CommandType, movement: MoveDirection?, scanType: ScanType? ){
+    func sendMessage(cmdType: CommandType, movement: MoveDirection?, scanType: ScanType? = nil ){
+        
+        
+        if cmdType == .movement
+        {
+            let urlLocal = urlString + "/command"
+            self.url = URL(string: urlLocal)!
+        }
+        
         
         var localRequest = URLRequest(url: self.url)
         
@@ -84,10 +93,13 @@ final class Messenger: ObservableObject {
         )
         */
         
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+ 
+      //  let urlLocal = "http://" + "192.168.1.88:80/command"
+ 
+        
+        var components = URLComponents(url: self.url, resolvingAgainstBaseURL: false)!
         components.queryItems = [
-            URLQueryItem(name: "cmd", value: cmdType.rawValue),
-            URLQueryItem(name: "key2", value: "blooo")
+            URLQueryItem(name: "cmd", value: movement?.rawValue)
         ]
 
         let query = components.url!.query
@@ -112,11 +124,14 @@ final class Messenger: ObservableObject {
                 }
                 
                 do {
+                    /*
                     let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:AnyObject]
                     if result != nil && ("cmd" != "null") {
                         let Val = result?["cmd"] as! String
                         self.HTTPResponse = Val;
-                    }
+                    }*/
+                    // Handle HTTP request response
+                    print("Data is true")
                 
                 } catch {
                        print("Error -> \(error)")
@@ -141,7 +156,7 @@ func sendHTTP_POST(_ url_str: String, _ command: String, _ numeric: Int = 0) -> 
     
     print("sending command")
     
-    let urlString =  "http://" + "192.168.1.88/command"
+    let urlString =  "http://" + "192.168.1.88:80/command"
     
     let url = URL(string: urlString)!
     
@@ -225,23 +240,23 @@ func sendSpeedUpdate(newSpeedVal: Int) -> Void {
 
 // Placeholder HTTP implementations to use with Wi-Fi chip in meantime
 func sendForwardCommandHTTP() -> Void {
-    sendHTTP_POST("www.placeholder", "F")
+    sendHTTP_POST("www.placeholder", MoveDirection.forward.rawValue)
 }
 
 func sendBackWardCommandHTTP() -> Void {
-    sendHTTP_POST("www.placeholder", "B")
+    sendHTTP_POST("www.placeholder", MoveDirection.back.rawValue)
 }
 
 func sendTurnLeftCommandHTTP() -> Void {
-    sendHTTP_POST("www.placeholder", "L")
+    sendHTTP_POST("www.placeholder", MoveDirection.turnleft.rawValue)
 }
 
 func sendTurnRightCommandHTTP() -> Void {
-    sendHTTP_POST("www.placeholder", "R")
+    sendHTTP_POST("www.placeholder", MoveDirection.turnright.rawValue)
 }
 
 func sendHaltCommandHTTP() -> Void {
-    sendHTTP_POST("www.placeholder", "H")
+    sendHTTP_POST("www.placeholder", MoveDirection.halt.rawValue)
 }
 
 
