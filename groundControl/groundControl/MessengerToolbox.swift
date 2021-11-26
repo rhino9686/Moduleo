@@ -48,7 +48,7 @@ final class Messenger: ObservableObject {
     
     private var HTTPResponse = "Nothing Received";
     
-    // Constructor: creates a url packet to create requests with repeatedly
+    // Constructor: creates a url packet to create requests with, repeatedly
     init(ipAddr: String, port: Int?) {
         
         if (port != nil){
@@ -62,12 +62,13 @@ final class Messenger: ObservableObject {
     func setURL(ipAddr:String){
         self.myIP = ipAddr;
         self.urlString =  "http://" + ipAddr + ":" + self.port;
+        self.url = URL(string: urlString)!
     }
     
     
     func sendMessage(cmdType: CommandType, movement: MoveDirection?, scanType: ScanType? ){
         
-        var localRequest = URLRequest(url: url)
+        var localRequest = URLRequest(url: self.url)
         
         // Configure request authentication
         localRequest.setValue(
@@ -75,16 +76,26 @@ final class Messenger: ObservableObject {
             forHTTPHeaderField: "Authorization"
         )
         
-        // Serialize HTTP Body data as JSON
-        let body = ["cmd": cmdType]
+        /* Serialize HTTP Body data as JSON
+        let body = ["cmdType": cmdType]
         let bodyData = try? JSONSerialization.data(
             withJSONObject: body,
             options: []
         )
+        */
+        
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        components.queryItems = [
+            URLQueryItem(name: "cmd", value: cmdType.rawValue),
+            URLQueryItem(name: "key2", value: "blooo")
+        ]
+
+        let query = components.url!.query
+        
         
         // Change the URLRequest to a POST request
         localRequest.httpMethod = "POST"
-        localRequest.httpBody = bodyData
+        localRequest.httpBody =  Data(query!.utf8)
         
         let session = URLSession.shared
         let task = session.dataTask(with: localRequest) { (data, response, error) in
@@ -130,11 +141,10 @@ func sendHTTP_POST(_ url_str: String, _ command: String, _ numeric: Int = 0) -> 
     
     print("sending command")
     
-    let urlString =  "http://" + "192.168.86.208"
+    let urlString =  "http://" + "192.168.1.88/command"
     
     let url = URL(string: urlString)!
     
-
     var request = URLRequest(url: url)
     
     // Configure request authentication
@@ -143,16 +153,28 @@ func sendHTTP_POST(_ url_str: String, _ command: String, _ numeric: Int = 0) -> 
         forHTTPHeaderField: "Authorization"
     )
 
-    // Serialize HTTP Body data as JSON
-    let body = ["cmd": command]
+    // Serialize HTTP Body data as JSON (this seems to add unnecessary JSON artifacts that the arduino libraries don't work with, replaced with the URLcomponents method
+    /*
+    
+    let body:[String: Any] = ["cmd": command, "name": "jack and jill"]
     let bodyData = try? JSONSerialization.data(
         withJSONObject: body,
-        options: []
+        options: .prettyPrinted
     )
+   */
+    
+    var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+    components.queryItems = [
+        URLQueryItem(name: "cmd", value: command),
+        URLQueryItem(name: "key2", value: "blooo")
+    ]
 
+    let query = components.url!.query
+
+    
     // Change the URLRequest to a POST request
     request.httpMethod = "POST"
-    request.httpBody = bodyData
+    request.httpBody = Data(query!.utf8)
     
     let session = URLSession.shared
     let task = session.dataTask(with: request) { (data, response, error) in
