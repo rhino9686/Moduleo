@@ -97,7 +97,7 @@ struct ContentView: View {
             .cornerRadius(8)
             HStack{
                 Spacer()
-                Button("Turn Left "){
+                Button(" Turn Left  "){
                    // sendTurnLeftCommand()
                     
                     messenger.sendMessage(
@@ -109,7 +109,7 @@ struct ContentView: View {
                 .background(Color.blue)
                 .cornerRadius(8)
                 Spacer()
-                Button("     Stop    "){
+                Button("Stop"){
                 //    sendHaltCommand()
                     messenger.sendMessage(
                         cmdType:  .movement,
@@ -117,8 +117,11 @@ struct ContentView: View {
                 }
                 .foregroundColor(.white)
                 .padding()
+                .padding(Edge.Set.trailing, 20)
+                .padding(Edge.Set.leading, 20)
                 .background(Color.gray)
                 .cornerRadius(8)
+                
                 Spacer()
                 
                 Button("Turn Right"){
