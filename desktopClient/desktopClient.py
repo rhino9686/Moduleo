@@ -10,7 +10,7 @@ ipAddr = "192.777.345"
 port = "80"
 
 urlStr = "http://" + ipAddr + ":" + port
-
+ 
 
 async def hello():
     async with websockets.connect(urlStr) as websocket:
