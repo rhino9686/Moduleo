@@ -1,6 +1,7 @@
 char datumRec = 'G';
 
 char datumSend = 'H';
+
 void setup() {
   // put your setup code here, to run once:
 
@@ -18,6 +19,19 @@ void loop() {
       Serial.write(datumSend);
   }
 **/
+  datumSend = 'H';
   Serial.write(datumSend);
-
+  delay(1000);
+  
+  datumSend = "F";
+  Serial.write(datumSend);
+  delay(1000);
+  
+  datumSend = "L";
+  Serial.write(datumSend);
+  delay(1000);
+  
+  datumSend = "R";
+  Serial.write(datumSend);
+  delay(1000);
 }
