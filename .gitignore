@@ -1,10 +1,15 @@
 .DS_Store
 groundControl/groundControl.xcodeproj/project.xcworkspace/xcuserdata/robertce.xcuserdatad/UserInterfaceState.xcuserstate
 groundControl/groundControl.xcodeproj/project.pbxproj
-ExecutionBoard/nbproject/private/private.xml
 WiFiChip/WiFiDriver/privates.h
-/ExecutionBoard/build/
-/ExecutionBoard/dist/
-ExecutionBoard/nbproject/private/private.xml
-ExecutionBoard/nbproject/Makefile-genesis.properties
-ExecutionBoard/nbproject/Makefile-default.mk
+/ExecutionBoard/PIC Edition/Makefile
+/ExecutionBoard/PIC Edition/ExecutionBoard.mc3
+/ExecutionBoard/PIC Edition/mcc_generated_files/
+/ExecutionBoard/PIC Edition/nbproject/
+/ExecutionBoard/MSP Edition/Debug/
+/ExecutionBoard/MSP Edition/targetConfigs/
+/ExecutionBoard/MSP Edition/.settings/
+/ExecutionBoard/MSP Edition/.ccsproject
+/ExecutionBoard/MSP Edition/.cproject
+/ExecutionBoard/MSP Edition/.project
+/ExecutionBoard/MSP Edition/lnk_msp430f2617.cmd

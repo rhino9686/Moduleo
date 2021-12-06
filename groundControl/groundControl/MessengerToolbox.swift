@@ -9,13 +9,14 @@ import Foundation
 import SwiftUI
 
 
-// TODO: revise and integrate or drop
+// Tells what kind of message is being sent to executor board
 enum CommandType: String {
-    case movement = "movement"
-    case dataScan = "dataScan"
+    case movement = "M"
+    case dataScan = "D"
+    case speedChange = "S"
 }
 
-// TODO: revise and integrate or drop
+// Tells what direction to move drone in
 enum MoveDirection: String {
     case forward = "F"
     case back = "B"
@@ -24,10 +25,11 @@ enum MoveDirection: String {
     case halt = "H"
 }
 
-// TODO: Integrate or drop
-enum ScanType {
-    case airQual
-    case Humidity
+// Tells what sensor to query for data
+enum ScanType: String {
+    case airQual = "A"
+    case Humidity = "H"
+    case ambientLight = "L"
 }
 
 // Validates a proper IP addr when entered by user
@@ -67,7 +69,7 @@ final class Messenger: ObservableObject {
     }
     
     
-    func sendMessage(cmdType: CommandType, movement: MoveDirection?, scanType: ScanType? = nil ){
+    func sendMessage(cmdType: CommandType, movement: MoveDirection?, scanType: ScanType? = nil, speedVal: Int8? = nil ){
         
         
         if cmdType == .movement

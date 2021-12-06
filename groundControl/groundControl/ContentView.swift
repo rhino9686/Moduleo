@@ -28,8 +28,8 @@ struct SettingsView: View {
     @State private var isEditing = false
     
     init() {
-     //   username = messenger.myIP;
-        
+        //Do I even need this?
+        //maybe for speed or something later
     }
     
     var body: some View {
@@ -72,9 +72,24 @@ struct ContentView: View {
     @State var speed: Double = 20
     
     func speedChanged(to value: Double) {
-        print("Name changed to \(speed)!")
-      //  var intSpeedVal = Int32(speed);
+        print("Speed changed to \(speed)")
+        
     }
+    
+    var speedTimer: Timer? = nil
+    
+    init() {
+        //replace with code that will update speed on the drone
+        speedTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
+            let randomNumber = Int.random(in: 1...20)
+            print("Number: \(randomNumber)")
+
+            if randomNumber == 10 {
+                timer.invalidate()
+            }
+        }
+    }
+    
     
     var body: some View {
         VStack{
@@ -156,7 +171,24 @@ struct ContentView: View {
                 .padding()
             
             Slider(value: $speed.onChange(speedChanged), in: 0...30).padding(30)
+       
+            
             Text("Current speed: \(speed, specifier: "%.0f")")
+            
+           /* Button("Set Speed on Drone") {
+                let intSpeedVal = Int8(speed);
+                
+                messenger.sendMessage(
+                    cmdType:  .speedChange,
+                    movement: nil,
+                    scanType: nil,
+                    speedVal: intSpeedVal)
+                
+            }
+            .padding()
+            .foregroundColor(.black)
+            .background(Color.gray)
+            .cornerRadius(8)*/
         }
       
         Button("Preferences") {
