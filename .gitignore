@@ -1,8 +1,7 @@
 .DS_Store
 arduinoWebSockets-master.zip
 groundControl/groundControl.xcodeproj/project.xcworkspace/xcuserdata/robertce.xcuserdatad/UserInterfaceState.xcuserstate
-groundControl/groundControl.xcodeproj/project.pbxproj
-WiFiChip/WiFiDriver/privates.h
+/groundControl/groundControl.xcodeproj/project.pbxproj
 /ExecutionBoard/PIC Edition/Makefile
 /ExecutionBoard/PIC Edition/ExecutionBoard.mc3
 /ExecutionBoard/PIC Edition/mcc_generated_files/
@@ -17,3 +16,14 @@ WiFiChip/WiFiDriver/privates.h
 
 /WiFiChip/WiFiDriverSocket/privates.h
 WiFiChip/WiFiDriverHTTP/privates.h
+
+/ExecutionBoard/STM Edition/main.zip
+/ExecutionBoard/STM Edition/STM32Drivers.zip
+/ExecutionBoard/STM Edition/STM32Drivers/.settings/
+/ExecutionBoard/STM Edition/STM32Drivers/.cproject
+/ExecutionBoard/STM Edition/STM32Drivers/.mxproject
+/ExecutionBoard/STM Edition/STM32Drivers/.project
+ExecutionBoard/STM Edition/STM32Drivers/ModSTMv3 Debug (3).cfg
+ExecutionBoard/STM Edition/STM32Drivers/ModSTMv3 Debug.launch
+ExecutionBoard/STM Edition/STM32Drivers/ModSTMv3 Run on Chip.launch
+ExecutionBoard/STM Edition/STM32Drivers/STM32F042K6TX_FLASH.ld
