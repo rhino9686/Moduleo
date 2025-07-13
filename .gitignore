@@ -1,4 +1,5 @@
 .DS_Store
+arduinoWebSockets-master.zip
 groundControl/groundControl.xcodeproj/project.xcworkspace/xcuserdata/robertce.xcuserdatad/UserInterfaceState.xcuserstate
 groundControl/groundControl.xcodeproj/project.pbxproj
 WiFiChip/WiFiDriver/privates.h
@@ -13,3 +14,6 @@ WiFiChip/WiFiDriver/privates.h
 /ExecutionBoard/MSP Edition/.cproject
 /ExecutionBoard/MSP Edition/.project
 /ExecutionBoard/MSP Edition/lnk_msp430f2617.cmd
+
+/WiFiChip/WiFiDriverSocket/privates.h
+WiFiChip/WiFiDriverHTTP/privates.h
