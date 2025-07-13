@@ -58,6 +58,25 @@ struct SettingsView: View {
            Text(newIP)
                .foregroundColor(isEditing ? .red : .blue)
             Spacer()
+            Button("Set IP to 192.168.4.96"){
+                
+                messenger.setURL(ipAddr: "192.168.4.96")
+                
+            }
+            Spacer()
+            Button("Set IP to 192.168.4.99"){
+                
+                messenger.setURL(ipAddr: "192.168.4.99")
+                
+            }
+            Spacer()
+            Button("Set IP to 192.168.4.82"){
+                
+                messenger.setURL(ipAddr: "192.168.4.82")
+                
+            }
+            Spacer()
+            
         }.padding()
            
         
@@ -70,30 +89,47 @@ struct ContentView: View {
     
     @EnvironmentObject var messenger: Messenger
     @State var speed: Double = 20
+    @State private var speedChangedFlag: Bool = false
     
     func speedChanged(to value: Double) {
-        print("Speed changed to \(speed)")
         
+        let speedInt: UInt8 = UInt8(speed);
+        print("Speed changed to \(speedInt)");
+        messenger.setSpeed(speed_in: speedInt);
+        
+    }
+    
+    func updateSpeed(){
+        
+        if (speedChangedFlag){
+            let speedInt: UInt8 = UInt8(speed);
+            messenger.sendMessage(cmdType: .speedChange, movement: nil, speedVal: speedInt);
+            
+        }
     }
     
     var speedTimer: Timer? = nil
     
     init() {
-        //replace with code that will update speed on the drone
-        speedTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
-            let randomNumber = Int.random(in: 1...20)
-            print("Number: \(randomNumber)")
+        
+        //We moved the timer logic inside the messenger class and connection status so this is vestigial for now
+        self.speedTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
+            
+            
+                let randomNumber = Int.random(in: 1...20)
+               // print("Number: \(randomNumber)")
 
-            if randomNumber == 10 {
-                timer.invalidate()
-            }
+                if randomNumber == 10 {
+                    timer.invalidate()
+                }
         }
+
     }
     
     
     var body: some View {
         VStack{
-            
+            ConnectionView()
             Text("Controls")
                 .bold()
                 .font(.title)
@@ -170,25 +206,12 @@ struct ContentView: View {
                 .font(.title)
                 .padding()
             
-            Slider(value: $speed.onChange(speedChanged), in: 0...30).padding(30)
+            Slider(value: $speed.onChange(speedChanged), in: 0...100).padding(30)
        
             
             Text("Current speed: \(speed, specifier: "%.0f")")
+       
             
-           /* Button("Set Speed on Drone") {
-                let intSpeedVal = Int8(speed);
-                
-                messenger.sendMessage(
-                    cmdType:  .speedChange,
-                    movement: nil,
-                    scanType: nil,
-                    speedVal: intSpeedVal)
-                
-            }
-            .padding()
-            .foregroundColor(.black)
-            .background(Color.gray)
-            .cornerRadius(8)*/
         }
       
         Button("Preferences") {
