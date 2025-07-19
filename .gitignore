@@ -2,6 +2,7 @@
 arduinoWebSockets-master.zip
 groundControl/groundControl.xcodeproj/project.xcworkspace/xcuserdata/robertce.xcuserdatad/UserInterfaceState.xcuserstate
 /groundControl/groundControl.xcodeproj/project.pbxproj
+/groundControl/groundControl.xcodeproj/
 /ExecutionBoard/PIC Edition/Makefile
 /ExecutionBoard/PIC Edition/ExecutionBoard.mc3
 /ExecutionBoard/PIC Edition/mcc_generated_files/
@@ -27,3 +28,6 @@ ExecutionBoard/STM Edition/STM32Drivers/ModSTMv3 Debug (3).cfg
 ExecutionBoard/STM Edition/STM32Drivers/ModSTMv3 Debug.launch
 ExecutionBoard/STM Edition/STM32Drivers/ModSTMv3 Run on Chip.launch
 ExecutionBoard/STM Edition/STM32Drivers/STM32F042K6TX_FLASH.ld
+
+ExecutionBoard/STM Edition/STM32Drivers/Debug/
+ExecutionBoard/STM Edition/STM32Drivers/Drivers/
