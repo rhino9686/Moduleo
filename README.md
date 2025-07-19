@@ -5,14 +5,18 @@ In short, Moduleo is a robot. One that can do a handful of tasks, enabled by its
 
 
 ### Motivations
-The motivations for designing and architecting this project stem from various reasons. Firstly, my final embedded systems course, EECS 473, had a pesky requirement that all projects be “useful” and “marketable” rather than simply being fun to make. This project is more an exploration of the technologies in modern embedded systems, that incorporates all I learned in school as well as the analog hardware design I've learned during my tenure as an engineer -- in a fun package. It also serves as an exercise in design, manufacturing, and packaging with a bit of CAD and hands on crafting.
+The motivations for designing and architecting this project stem from various factors. Firstly, my final embedded systems course, EECS 473, had a pesky requirement that all projects be “useful” and “marketable” rather than simply being fun to make. This project is more an exploration of the technologies in modern embedded systems, that incorporates all I learned in school as well as the analog hardware design I've learned during my tenure as an engineer -- in a fun package.
+
+Secondly, it's my first solo project, building on my software and hardware knowledge while also serving as an exercise in design, manufacturing, and packaging with a bit of CAD and hands on crafting.
 
 
-<img src="img/blockDiagram.png" alt="drawing" width="600"/>
+<img src="img/earlySketch.png" alt="drawing" width="600"/>
+
+
 
 
 ### Block Diagram
-<img src="img/earlySketch.png" alt="drawing" width="600"/>
+<img src="img/blockDiagram.png" alt="drawing" width="800"/>
 
 #### Technologies in Play
 Motor control with dual motor design
