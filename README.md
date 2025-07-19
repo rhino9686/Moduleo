@@ -13,27 +13,27 @@ Secondly, it's my first solo project, building on my software and hardware knowl
 <img src="img/earlySketch.png" alt="drawing" width="600"/>
 
 
-
-
 ### Block Diagram
 <img src="img/blockDiagram.png" alt="drawing" width="800"/>
 
-#### Technologies in Play
-Motor control with dual motor design
+### Major Themes
 
-Mid voltage power system design with 14.3V Battery
+I wanted to make a robot (originally inspired by Star Wars Droids)
+- I gave myself specific constraints
+    - Needed to use my own designed PCB as the central hub of system
+    - Needed to use DriverLib or HAL software, minimize Arduino
+    - Needed to be network of boards, with UART/I2C connections between them
+    - I (eventually) want to incorporate an RTOS
 
 
 
 
-<img src="img/powerTree.png" alt="drawing" width="300"/>
+<img src="img/powerTree.png" alt="drawing" width="400"/>
 
 <img src="img/fullsetup.jpeg" alt="drawing" width="300"/>
 
 
 <img src="img/phoneUI.PNG" alt="drawing" width="300"/>
-
-
 
 
 <img src="img/prettySetup.jpeg" alt="drawing" width="300"/>
