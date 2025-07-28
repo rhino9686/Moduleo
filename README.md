@@ -19,20 +19,26 @@ Secondly, it's my first solo project, building on my software and hardware knowl
 ### Major Themes
 
 I wanted to make a robot (originally inspired by Star Wars Droids)
-- I gave myself specific constraints
-    - Needed to use my own designed PCB as the central hub of system
-    - Needed to use DriverLib or HAL software, minimize Arduino
-    - Needed to be network of boards, with UART/I2C connections between them
-    - I (eventually) want to incorporate an RTOS
+
+- I gave myself specific constraints:
+    - I needed to use my own designed PCB as the central hub of system.
+    - I needed to use DriverLib or HAL software, minimize Arduino.
+    - I needed to be network of boards, with UART/I2C connections between them.
+    - I (eventually) want to incorporate an RTOS.
 
 
-### Project History and progress so far
+### Project History and Progress So Far
 
 #### Picking the chassis
 
 I found some spare parts as mechanical basis
 - Right - old MakeBlock kit Tank Chassis
 - Left - Tank Chassis from Amazon (for next version)
+
+<img src="img/chassis_1.jpeg" alt="drawing" width="400"/>
+
+<img src="img/chassis_2.jpeg" alt="drawing" width="400"/>
+
 
 
 #### Picking the brains
@@ -43,7 +49,7 @@ I knew I needed
 - UART for connecting 2+ MCUs together
 - GPIO for LED output, debug, etc.
 
-STM32 was mature platform with good peripherals and DriverLib, so I designed the first iteration around s STM32F Dev board
+STM32 was a mature platform with good peripherals and DriverLib, so I designed the first iteration around a STM32F Dev board.
 
 #### Picking a communications platform
 
