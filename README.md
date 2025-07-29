@@ -51,10 +51,14 @@ I knew I needed
 
 STM32 was a mature platform with good peripherals and DriverLib, so I designed the first iteration around a STM32F Dev board.
 
+<img src="img/stm32.jpeg" alt="drawing" width="400"/>
+
 #### Picking a communications platform
 
 Wi-Fi chip was also needed for my preferred communication (Wi-Fi sockets)
 This was a fairly straightforward choice in hobbyist world - Espressif has best drivers and can use Arduino IDE, so I designed around ESP8266 Dev board.
+
+<img src="img/ESP8266.jpeg" alt="drawing" width="400"/>
 
 #### Picking the batteries
 
@@ -62,6 +66,9 @@ The main determinants for picking a battery are capacity and voltage levels.
 I had two Lithium-ion batteries from other products laying around.
 - Battery #1: a 14.4V rechargeable battery from Shark Robot Vacuum
 - Battery #2: a 2.7V rechargeable battery from Amazon RC car
+
+<img src="img/big_and_small.jpeg" alt="drawing" width="400"/>
+
 
 #### Motor Drivers
 
