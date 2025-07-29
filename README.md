@@ -43,7 +43,7 @@ I found some spare parts as mechanical basis
 
 #### Picking the brains
 
-I knew I needed 
+I knew I needed: 
 - PWM output for 2-4 motors
 - I2C drivers for future modules
 - UART for connecting 2+ MCUs together
@@ -55,33 +55,33 @@ STM32 was a mature platform with good peripherals and DriverLib, so I designed t
 
 #### Picking a communications platform
 
-Wi-Fi chip was also needed for my preferred communication (Wi-Fi sockets)
-This was a fairly straightforward choice in hobbyist world - Espressif has best drivers and can use Arduino IDE, so I designed around ESP8266 Dev board.
+A Wi-Fi chip was also needed for my preferred communication (Wi-Fi sockets).
+This was a fairly straightforward choice in hobbyist world - Espressif has best drivers and can use Arduino IDE, so I designed around an ESP8266 Dev board.
 
 <img src="img/ESP8266.jpeg" alt="drawing" width="400"/>
 
 #### Picking the batteries
 
 The main determinants for picking a battery are capacity and voltage levels.
-I had two Lithium-ion batteries from other products laying around.
-- Battery #1: a 14.4V rechargeable battery from Shark Robot Vacuum
-- Battery #2: a 2.7V rechargeable battery from Amazon RC car
+I had two Lithium-ion batteries from other products laying around:
+- Battery #1: a 3.7V rechargeable battery from Amazon RC car.
+- Battery #2: a 14.4V rechargeable battery from Shark Robot Vacuum. 
 
 <img src="img/big_and_small.jpeg" alt="drawing" width="400"/>
 
 
 #### Motor Drivers
 
-The tank Chassis both came with 12V brushed motors. This is pretty standard for brushed motors in small appliances since motor power correlates with size of its coils.
-I had worked with Brushed motor drivers for a while, and had experience using the TI DRV8231
+The tank chassis both came with 12V brushed motors. This is pretty standard for brushed motors in small appliances since motor power correlates with size of its coils.
+I had worked with brushed motor drivers for a while, and had experience using the TI DRV8231.
 - This just needed 3.3V VREF and 12V VM
 
 #### How to power it all?
 
-Now we had 2 dev boards, 2 motors, and 2 potential battery voltages.
+Now we had 2 MCU dev boards, 2 motors, and 2 potential battery voltages.
 How do I make power tree to work with all the different parts?
 
-- Used a boost and a buck-boost to receive VIN that could be 2-15V
+- Used a boost and a buck-boost to receive VIN that could be 3-15V
 
 - Used boost to power motors (wanted high voltage, low current)
 
