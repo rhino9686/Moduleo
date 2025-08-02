@@ -97,13 +97,13 @@ I used a boost and a buck-boost to receive VIN that could be ~3.6-15V .
 
 - I used the boost to power motors (wanted high voltage, low current).
 
-<img src="img/Boost_subsystem.png" alt="drawing" width="400"/>
+<img src="img/Boost_subsystem.png" alt="drawing" width="700"/>
 
 - I used the buck-boost to generate 7.5V rail, and then an LDO off of that to produce 3.3V for logic.
 
-<img src="img/BuckBoost_subsystem.png" alt="drawing" width="400"/>
+<img src="img/BuckBoost_subsystem.png" alt="drawing" width="700"/>
 
-<img src="img/buckboostPortion.jpeg" alt="drawing" width="300"/>
+<img src="img/buckboostPortion.jpeg" alt="drawing" width="700"/>
 
 
 <img src="img/fullsetup.jpeg" alt="drawing" width="300"/>
