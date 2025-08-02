@@ -75,9 +75,11 @@ I wanted to leverage both for their strengths, as the 3.7V battery will be easil
 #### Motor Drivers
 
 The tank chassis both came with 12V brushed motors. This is pretty standard for brushed motors in small appliances, as motor power correlates with size of their coils.
+
 <img src="img/chassis_1_motor.jpeg" alt="drawing" width="400"/>
 
 I've worked with brushed motor drivers for a while, and had experience using the TI DRV8231 H-Bridge driver.
+
 <img src="img/MotorDriver_subsystem.png" alt="drawing" width="400"/>
 
 
@@ -94,9 +96,13 @@ This took some iteration, but the below diagram shows my final architecture.
 I used a boost and a buck-boost to receive VIN that could be ~3.6-15V .
 
 - I used the boost to power motors (wanted high voltage, low current).
+
 <img src="img/Boost_subsystem.png" alt="drawing" width="400"/>
+
 - I used the buck-boost to generate 7.5V rail, and then an LDO off of that to produce 3.3V for logic.
+
 <img src="img/BuckBoost_subsystem.png" alt="drawing" width="400"/>
+
 <img src="img/buckboostPortion.jpeg" alt="drawing" width="300"/>
 
 
