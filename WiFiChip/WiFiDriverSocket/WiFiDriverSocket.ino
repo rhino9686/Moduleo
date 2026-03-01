@@ -15,7 +15,8 @@ ESP8266WiFiMulti WiFiMulti;
 
 WebSocketsServer webSocket = WebSocketsServer(81);
 
-//#define USE_SERIAL Serial //Set this back to Serial to see all output on Serial Monitor, Set to mySerial to turn off that extra output
+//Set USE_SERIAL=Serial to see all output on Serial Monitor, Set USE_SERIAL=mySerial to turn off extra output (extra output will be seen by STM32 UART)
+//#define USE_SERIAL Serial 
 #define USE_SERIAL mySerial
 
 #define STM32 Serial
@@ -27,6 +28,7 @@ SoftwareSerial mySerial (rxPin, txPin);
 
 //This is for outputting on onboard LED when the connection is secure
 const byte outputLightPin = 2;
+const byte outputLightPin2 = 13;
 
 bool ISCONNECTED = 0;
 
@@ -46,11 +48,15 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length
               STM32.write(0);
               STM32.print('Z');
               STM32.print('Z');
+              //external PCB LED set dark
+              analogWrite(outputLightPin2, 0);
             break;
         case WStype_CONNECTED:
             {
                 IPAddress ip = webSocket.remoteIP(num);
                 USE_SERIAL.printf("[%u] Connected from %d.%d.%d.%d url: %s\n", num, ip[0], ip[1], ip[2], ip[3], payload);
+                //External PCB LED set bright
+                analogWrite(outputLightPin2, 200);
 				
 				// send message to client
 				webSocket.sendTXT(num, "Connected");
@@ -93,7 +99,7 @@ void setup() {
         delay(1000);
     }
 
-    WiFiMulti.addAP("333Pearls-Mesh", "pearlsbeforeswine");
+    WiFiMulti.addAP(corey_ap, corey_password);
 
     while(WiFiMulti.run() != WL_CONNECTED) {
         USE_SERIAL.printf("connecting to WiFi");
@@ -105,7 +111,8 @@ void setup() {
 
     // testing the connection between STM32 and ESP8266
     bool isConnected = 0;
-
+    bool first_test = 0;
+    bool second_test = 0;
     // this pin is ACTIVE LOW so 255 makes it off, and 0-254 is on. We are turning it OFF until handshake is complete
     analogWrite(outputLightPin, 255);
 
@@ -115,8 +122,18 @@ void setup() {
     while (!isConnected){
       bool first_test = testRobotConnection(100);
       bool second_test = testRobotConnection(200);
+
+      if (!first_test){
+        USE_SERIAL.print("First Test failed");
+        analogWrite(outputLightPin, 255);
+      }
+      if (!second_test){
+        USE_SERIAL.print("Second Test failed");
+      }
+      delay(500);
       isConnected = ( first_test || second_test);
-      USE_SERIAL.print("Trying to Connect");
+      USE_SERIAL.print("Trying to Connect\n");
+      analogWrite(outputLightPin, 5);
     }
     bool third_test = testRobotConnection(101);
     //If we've gotten here, then the two boards are connected
@@ -133,6 +150,7 @@ void loop() {
     webSocket.loop();
     if(ISCONNECTED){
       analogWrite(outputLightPin, 5);
+     
     }
    // delay(1000);
 }
@@ -181,8 +199,6 @@ void processTextPayload(uint8_t * payload, size_t length){
   else{
      myRobot.direction = cmdByte;
   }
-
-  
 
 
 
