@@ -1,4 +1,4 @@
-## script for testing ESP8266 Server with HTTPS and Socket communication
+## script for testing ESP8266 Server with HTTPS and Socket communication, can tweak for whatever uses we have
 import asyncio
 import websockets
 import socket
