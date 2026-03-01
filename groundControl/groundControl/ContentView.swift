@@ -76,6 +76,12 @@ struct SettingsView: View {
                 
             }
             Spacer()
+            Button("Set IP to 192.168.4.79"){
+                
+                messenger.setURL(ipAddr: "192.168.4.79")
+                
+            }
+            Spacer()
             
         }.padding()
            
@@ -129,7 +135,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack{
-            ConnectionView()
+            ConnectionView().environmentObject(self.messenger)
             Text("Controls")
                 .bold()
                 .font(.title)

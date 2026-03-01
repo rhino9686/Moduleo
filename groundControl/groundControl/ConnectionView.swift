@@ -12,7 +12,7 @@ let myGrey = Color(red: (30/255), green: (30/255), blue: (30/255), opacity: 1.0)
 
 struct ConnectionView: View {
     //Our tank Data packet
-    //@EnvironmentObject var tankData: TankProfile
+    @EnvironmentObject var messenger: Messenger
     
     //String vars to display things easier
     @State var currentTempStr = "70 °F"
@@ -32,6 +32,15 @@ struct ConnectionView: View {
     
     func update() {
         print("updating")
+        let connected = messenger.getConnectionStatus();
+        if (connected){
+            overallConnection = "Good"
+            healthColor = .green
+        }
+        else{
+            overallConnection = "Disconnected"
+            healthColor = .red
+        }
      //   self.tankData.updateParams()
        
     }
@@ -41,10 +50,11 @@ struct ConnectionView: View {
         VStack {
             HStack {
                 Text("Connection: ")
-                    .font(.title)
+                 //   .font(.title)
+                    .font(.title2)
                     .fontWeight(.medium)
                 Text(overallConnection)
-                    .font(.title)
+                    .font(.title2)
                     .foregroundColor(healthColor)
                 Spacer()
             }
@@ -58,18 +68,12 @@ struct ConnectionView: View {
             
             
             HStack {
-                Text("Last checked: \(self.lastTimeChecked)")
-                    .onReceive(timer) { input in
-                        
-                        //print("ticktock");
-   
-                }
-                    .font(.footnote)
+
                 
                 Spacer()
 
                 Button(action: {
-                   
+                    self.update()
                 }, label: {
                     Image(systemName: "arrow.clockwise")
                 })

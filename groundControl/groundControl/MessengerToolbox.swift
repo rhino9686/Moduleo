@@ -104,6 +104,10 @@ final class Messenger: ObservableObject {
         
     }
     
+    func getConnectionStatus() -> Bool {
+        return isConnected;
+    }
+    
     func setURL(ipAddr:String){
         
         self.socket.disconnect();
@@ -147,18 +151,25 @@ final class Messenger: ObservableObject {
             case .binary(let data):
                 print("Received data: \(data.count)")
             case .ping(_):
+                print("Ping")
                 break
             case .pong(_):
+                print("Pong")
                 break
             case .viabilityChanged(_):
+                print("viability")
                 break
             case .reconnectSuggested(_):
+                print("reconnect")
                 break
             case .cancelled:
+                print("cancelled")
                 self.isConnected = false
             case .error(_):
                 self.isConnected = false
             case .peerClosed:
+                print("peer closed")
+                self.isConnected = false
                 break
             }
         }
