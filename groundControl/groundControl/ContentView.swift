@@ -20,7 +20,67 @@ extension Binding {
     }
 }
 
-// controls view for settings 
+struct DetailedSensorView: View {
+    var body: some View {
+        VStack {
+            HStack {
+                Spacer()
+                Text("Refresh Values").font(.title2).foregroundColor(.blue)
+                Button(action: {
+                   
+                }, label: {
+                    Image(systemName: "arrow.clockwise")
+                })
+                    .foregroundColor(Color.white)
+                    .padding(10)
+                .cornerRadius(5)
+                .padding(.trailing)
+                Spacer()
+            }
+            HStack {
+                Text("Temperature: ")
+                Text("gloop")
+                Spacer()
+            }
+            .padding(.top, 5)
+            
+            HStack {
+                Text("Relative Humidity %: ")
+                Text("gloop")
+                Spacer()
+            }
+            .padding(.top)
+            
+            //1.0
+            HStack {
+                Text("PM1.0 concentration: ")
+                Text("shoop")
+                Spacer()
+            }
+            .padding(.top)
+            
+            
+            //2.5
+            HStack {
+                Text("PM2.5 concentration: ")
+                Text("shoop")
+                Spacer()
+            }
+            .padding(.top)
+            
+            HStack {
+                Text("PM10 concentration: ")
+                Text("shoop")
+                Spacer()
+            }
+            .padding(.top)
+            
+        }
+        .padding(30)
+    }
+}
+
+// controls view for settings
 struct SettingsView: View {
     @EnvironmentObject var messenger: Messenger
     
@@ -50,7 +110,6 @@ struct SettingsView: View {
                 if result {
                     messenger.setURL(ipAddr: newIP)
                 }
-            
            }
            .autocapitalization(.none)
            .disableAutocorrection(true)
@@ -134,99 +193,95 @@ struct ContentView: View {
     
     
     var body: some View {
-        VStack{
-            ConnectionView().environmentObject(self.messenger)
-            Text("Controls")
-                .bold()
-                .font(.title)
-                .padding()
-            
-            Button("Go Forward"){
-                
-                messenger.sendMessage(
-                    cmdType:  .movement,
-                    movement: .forward)
-                
-            }
-            .foregroundColor(.white)
-            .padding()
-            .background(Color.blue)
-            .cornerRadius(8)
-            HStack{
-                Spacer()
-                Button(" Turn Left  "){
-                   // sendTurnLeftCommand()
+        if #available(iOS 16.0, *) {
+            NavigationStack{
+                VStack{
                     
-                    messenger.sendMessage(
-                        cmdType:  .movement,
-                        movement: .turnleft)
+                    NavigationLink(destination: DetailedSensorView()) {
+                        ConnectionView().environmentObject(self.messenger)
+                    }
+                    Text("Controls")
+                        .bold()
+                        .font(.title)
+                        .padding()
+                    
+                    Button("Go Forward"){
+                        messenger.sendMessage(
+                            cmdType:  .movement,
+                            movement: .forward)
+                    }
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(8)
+                    HStack{
+                        Spacer()
+                        Button(" Turn Left  "){
+                            messenger.sendMessage(
+                                cmdType:  .movement,
+                                movement: .turnleft)
+                        }
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(8)
+                        Spacer()
+                        Button("Stop"){
+                            messenger.sendMessage(
+                                cmdType:  .movement,
+                                movement: .halt)
+                        }
+                        .foregroundColor(.white)
+                        .padding()
+                        .padding(Edge.Set.trailing, 20)
+                        .padding(Edge.Set.leading, 20)
+                        .background(Color.gray)
+                        .cornerRadius(8)
+                        
+                        Spacer()
+                        
+                        Button("Turn Right"){
+                            messenger.sendMessage(
+                                cmdType:  .movement,
+                                movement: .turnright)
+                        }
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(8)
+                        Spacer()
+                    }
+                    Button("Go Backward"){
+                        messenger.sendMessage(
+                            cmdType:  .movement,
+                            movement: .back)
+                    }
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(8)
+                    
+                    Text("Speed")
+                        .font(.title)
+                        .padding()
+                    
+                    Slider(value: $speed.onChange(speedChanged), in: 0...100).padding(30)
+                    
+                    Text("Current speed: \(speed, specifier: "%.0f")")
+                    
                 }
-                .foregroundColor(.white)
-                .padding()
-                .background(Color.blue)
-                .cornerRadius(8)
-                Spacer()
-                Button("Stop"){
-                //    sendHaltCommand()
-                    messenger.sendMessage(
-                        cmdType:  .movement,
-                        movement: .halt)
-                }
-                .foregroundColor(.white)
-                .padding()
-                .padding(Edge.Set.trailing, 20)
-                .padding(Edge.Set.leading, 20)
-                .background(Color.gray)
-                .cornerRadius(8)
                 
-                Spacer()
-                
-                Button("Turn Right"){
-                //    sendTurnRightCommand()
-                    messenger.sendMessage(
-                        cmdType:  .movement,
-                        movement: .turnright)
-                }
-                .foregroundColor(.white)
-                .padding()
-                .background(Color.blue)
-                .cornerRadius(8)
-                Spacer()
-                
+                Button("Preferences") {
+                    showingSettings.toggle()
+                }.padding(10)
+                    .sheet(isPresented: $showingSettings) {
+                        SettingsView().environmentObject(self.messenger)
+                    }
             }
-            Button("Go Backward"){
-                
-                //sendBackWardCommand()
-                messenger.sendMessage(
-                    cmdType:  .movement,
-                    movement: .back)
-                
-            }
-            .foregroundColor(.white)
-            .padding()
-            .background(Color.blue)
-            .cornerRadius(8)
-            
-            
-            Text("Speed")
-                .font(.title)
-                .padding()
-            
-            Slider(value: $speed.onChange(speedChanged), in: 0...100).padding(30)
-       
-            
-            Text("Current speed: \(speed, specifier: "%.0f")")
-       
-            
+        } else {
+            // Fallback on earlier versions
         }
-      
-        Button("Preferences") {
-            showingSettings.toggle()
-        }.padding(10)
-        .sheet(isPresented: $showingSettings) {
-            SettingsView().environmentObject(self.messenger)
-        }
-        
+
     }
 }
 
