@@ -31,3 +31,5 @@ ExecutionBoard/STM Edition/STM32Drivers/STM32F042K6TX_FLASH.ld
 
 ExecutionBoard/STM Edition/STM32Drivers/Debug/
 ExecutionBoard/STM Edition/STM32Drivers/Drivers/
+
+*.pyc
