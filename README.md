@@ -1,7 +1,7 @@
 # Moduleo
 
 ### Introduction
-In short, Moduleo is a robot. One that can do a handful of tasks, enabled by its modular design. It's based on a powertrain system with a dual motor driving scheme and a rechargeable Lithium-ion battery. The powertrain platform is be self-contained, with ports to mount different modules upon for flexible configurations. The first module being designed for it is a system of sensors to detect air quality and report it to a mobile app on a user’s device. Other modules may be designed, and need only implement a standard interface of communication to connect to the powertrain platform. The design is ongoing and will be subject to change as different components and technologies are weighed.
+In short, Moduleo is a small remote-controlled vehicle. One that can do a handful of tasks, enabled by its modular design. It's based on a powertrain system with a dual motor driving scheme and a rechargeable Lithium-ion battery. The powertrain platform is be self-contained, with ports to mount different modules upon for flexible configurations. The first module being designed for it is a system of sensors to detect air quality and report it to a mobile app on a user’s device. Other modules may be designed, and need only implement a standard interface of communication to connect to the powertrain platform. The design is ongoing and will be subject to change as different components and technologies are weighed.
 
 
 ### Motivations
@@ -93,29 +93,44 @@ The big design challenge was this: How do I make power tree to work with all the
 This took some iteration, but the below diagram shows my final architecture.
 <img src="img/powerTree.png" alt="drawing" width="500"/>
 
-I used a boost and a buck-boost to receive VIN that could be ~3.6-15V .
+I used a boost and a buck-boost to receive the battery voltage that could be ~3.6-15V.
 
-- I used the boost to power motors (wanted high voltage, low current).
+The boost is to power motors (wanted high voltage, low current)
 
 <img src="img/Boost_subsystem.png" alt="drawing" width="700"/>
 
-- I used the buck-boost to generate 7.5V rail, and then an LDO off of that to produce 3.3V for logic.
+While the buck-boost is to generate a 7.5V rail, and then then I used an LDO off of that to produce 3.3V for logic. 
+
+Why not 5V? The reasoning here is that the ESP and STM32 boards have an onboard LDO to produce 5V, so I needed something higher than 5V before the LDO.
 
 <img src="img/BuckBoost_subsystem.png" alt="drawing" width="700"/>
+
+
+The Buck-Boost took several iterations to get right, and was generally the most difficult part of the project. Layout took a while to get right, so I made a separate board to work on the layout and test it without the other devices in the system.
 
 <img src="img/buckboostPortion.jpeg" alt="drawing" width="700"/>
 
 
-<img src="img/fullsetup.jpeg" alt="drawing" width="300"/>
+The first major prototype board came together fairly well after debugging quite a few iterations. I did the schematic and layout in KiCAD, taking several years to study numerous tutorials on PCB crafting
+
+<img src="img/layout_moduleo.png" alt="drawing" width="700"/>
+
+<img src="img/prettySetup.jpeg" alt="drawing" width="700"/>
+
+It was able to take in a battery input and power all the ICs successfully. 
 
 
-<img src="img/phoneUI.PNG" alt="drawing" width="300"/>
+<img src="img/fullsetup.jpeg" alt="drawing" width="700"/>
+
+Another important piece was getting the controller. I started by making it connect to an iPhone/iPad app so I could start on a GUI that also reads sensor data. I coded up an entire app to have the useer input button presses to control speed and direction to the board.
+
+<img src="img/phoneUI.PNG" alt="drawing" width="600"/>
 
 
-<img src="img/prettySetup.jpeg" alt="drawing" width="300"/>
 
 
-<img src="img/layout_moduleo.png" alt="drawing" width="300"/>
+
+
 
 
 
