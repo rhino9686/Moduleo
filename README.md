@@ -110,6 +110,10 @@ The Buck-Boost took several iterations to get right, and was generally the most 
 
 <img src="img/buckboostPortion.jpeg" alt="drawing" width="700"/>
 
+This took a few tries, but I learned a lot about power supply layout in the process. (I took an entire power electronics OCW course online)
+
+<img src="img/buckboostPortion2.jpeg" alt="drawing" width="700"/>
+
 
 The first major prototype board came together fairly well after debugging quite a few iterations. I did the schematic and layout in KiCAD, taking several years to study numerous tutorials on PCB crafting
 
