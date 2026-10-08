@@ -33,8 +33,6 @@ struct Button{
 
 bool setupButton(Button*);
 
-
-
 enum Direction {
 
   LEFT,
@@ -46,30 +44,40 @@ enum Direction {
 
 struct Joystick {
 
-  ControllerPtr ctl;
-  bool leftStick;
+  ControllerPtr joyCtl = nullptr;
+  bool leftStick = false;
 
   float readX(){
+    if (joyCtl == nullptr) return 0;
     if (leftStick){
-      return (ctl->axisX())/512.0f;
+      return (joyCtl->axisX())/512.0f;
     }
-    else return (ctl->axisRX())/512.0f;
+    else return (joyCtl->axisRX())/512.0f;
   }
 
   float readY(){
+    if (joyCtl == nullptr) return 0;
     if (leftStick){
-      return (ctl->axisY())/512.0f;
+      return (joyCtl->axisY())/512.0f;
     }
-    else return (ctl->axisRY())/512.0f;
+    else return (joyCtl->axisRY())/512.0f;
   }
 
   Direction getDirection(){
-    
+    return LEFT;
   }
 
 };
 
-bool setupJoystick(Joystick*, ControllerPtr ctl, bool leftStick);
+void setupJoystick(Joystick* joy, ControllerPtr ctl, bool leftStick){
+
+  joy->leftStick = leftStick;
+  joy->joyCtl = ctl;
+}
+
+void setupButton(Button* btn){
+
+}
 
 
 // --- Globals -----------------------------------------------------------
@@ -105,6 +113,13 @@ void onConnectedController(ControllerPtr ctl) {
 
   digitalWrite(LED_PIN, HIGH);  
   myController = ctl;
+
+  leftJ.joyCtl = ctl;
+  rightJ.joyCtl = ctl;
+
+  setupJoystick(&leftJ, ctl, true);
+  setupJoystick(&rightJ, ctl, false);
+
 }
 
 void onDisconnectedController(ControllerPtr ctl) {
@@ -112,6 +127,8 @@ void onDisconnectedController(ControllerPtr ctl) {
   if (myController == ctl) {
     Serial.println("Controller disconnected!");
     myController = nullptr;
+    leftJ.joyCtl = nullptr;
+    rightJ.joyCtl = nullptr;
   }
 }
 
@@ -129,8 +146,9 @@ void setup() {
   // Setting up the attached functions for onConnection and onDisconnect
   BP32.setup(&onConnectedController, &onDisconnectedController);
 
-  setupJoystick(&leftJ, myController, true);
-  setupJoystick(&rightJ, myController, false);
+
+  leftJ.leftStick = true;
+  rightJ.leftStick = false;
 
 
   Serial.println("Ready. Turn on your Xbox controller and hold its Pair");
@@ -144,18 +162,22 @@ void loop() {
   BP32.update();
   // needs to be called as often as possible to stay responsive.
 
+  float lx = leftJ.readX();
+  float ly = leftJ.readY();
+
+  Serial.print("Left Stick x axis:");
+  Serial.println(lx);
+
+  Serial.print("Left Stick y axis:");
+  Serial.println(ly);
+  delay(300);
+
 }
 
-bool setupButton(Button* btn){
 
-}
 
-bool setupJoystick(Joystick* joy, ControllerPtr ctl, bool leftStick){
 
-  joy->leftStick = leftStick;
-  joy->ctl = ctl;
 
-}
 
 
 
